@@ -8,7 +8,7 @@
 # Footao Game Card
 Carte Lovelace personnalisée pour afficher les matchs Footao avec logos des équipes, chaîne TV et heure du coup d’envoi.
 
-![Homework card example](/doc/images/exmple.png "Footao example").
+![Footao example](/doc/images/example.png "Footao example").
 
 ## Installation
 ### Via HACS :
