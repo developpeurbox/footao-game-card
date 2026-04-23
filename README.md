@@ -30,16 +30,22 @@
 ---
 
 ## 🎯 **Utilisation**
-Ajoutez simplement ce code dans votre configuration Lovelace :
+Ajoutez simplement ce code dans votre configuration:
 
 ```yaml
 type: custom:footao-game-card
-entity: sensor.footao_lorient  # Remplacez par votre capteur
-footer_bg: "rgba(0,0,0,0.6)"
-footer_color: "#ffffff"
+entity: sensor.footao_lorient  # Remplacez par votre entité de capteur
+footer_bg: "rgba(0,0,0,0.6)"   # Couleur d'arrière-plan du pied de page
+footer_color: "#ffffff"        # Couleur du texte du pied de page
+
 ```
 
-Vous avez désormais la possibilité de changer la couleur du Footeur et du texte du Footeur via le custo
+### 🎨 Personnalisation
+
+Vous pouvez désormais personnaliser l'apparence du pied de page (*footer*) directement via les options de la carte :
+
+* **Arrière-plan :** Modifiez `footer_bg` (accepte les formats **HEX**, **RGB** ou **RGBA**).
+* **Couleur du texte :** Ajustez `footer_color` pour assurer une visibilité optimale selon votre fond
 
 ---
 
