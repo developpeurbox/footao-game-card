@@ -1,5 +1,5 @@
 /* ========================================================
-   Footao Game Card  — v1.3
+   Footao Game Card  — v1.4
    ======================================================== */
 
 class FootaoGameCard extends HTMLElement {
@@ -7,9 +7,12 @@ class FootaoGameCard extends HTMLElement {
   setConfig(config) {
     if (!config.entity) throw new Error("Vous devez définir une entité.");
     this._config = config;
+    // Forcer le re-render si hass est déjà disponible (ex: après sauvegarde config)
+    if (this._hass) this.hass = this._hass;
   }
 
   set hass(hass) {
+    this._hass = hass;
     if (!this._config) return;
 
     const state = hass.states[this._config.entity];
@@ -35,9 +38,9 @@ class FootaoGameCard extends HTMLElement {
     const date     = a.date          || "";
     const sprite   = a.logo          || "";
 
-    // Couleurs configurables (avec valeurs par défaut)
-    const footerBg    = this._config.footer_bg    || "rgba(0,0,0,0.45)";
-    const footerColor = this._config.footer_color || "#c8a96e";
+    // Couleurs configurables — appliquées via CSS custom properties sur l'hôte
+    this.style.setProperty("--footao-footer-bg",    this._config.footer_bg    || "rgba(0,0,0,0.45)");
+    this.style.setProperty("--footao-footer-color", this._config.footer_color || "#c8a96e");
 
     this.innerHTML = `
       <ha-card>
@@ -109,11 +112,11 @@ class FootaoGameCard extends HTMLElement {
           .chaine  { font-size: 10px; color: rgba(255,255,255,.4); margin-bottom: 4px; }
           .heure   { font-size: 28px; font-weight: 800; color: #fff; }
           .foot-footer {
-            background: ${footerBg};
+            background: var(--footao-footer-bg, rgba(0,0,0,0.45));
             border-top: 1px solid rgba(255,255,255,.07);
             padding: 11px 16px;
             text-align: center;
-            color: ${footerColor};
+            color: var(--footao-footer-color, #c8a96e);
             font-size: 13px;
             font-weight: 600;
             letter-spacing: .3px;
