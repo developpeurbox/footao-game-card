@@ -33,9 +33,13 @@
 Ajoutez simplement ce code dans votre configuration Lovelace :
 
 ```yaml
-type: custom:footao-match-card
+type: custom:footao-game-card
 entity: sensor.footao_lorient  # Remplacez par votre capteur
+footer_bg: "rgba(0,0,0,0.6)"
+footer_color: "#ffffff"
 ```
+
+Vous avez désormais la possibilité de changer la couleur du Footeur et du texte du Footeur via le custo
 
 ---
 
