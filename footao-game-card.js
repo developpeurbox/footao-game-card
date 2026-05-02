@@ -28,13 +28,20 @@ class FootaoGameCard extends HTMLElement {
     //  this.innerHTML = "";
     //  return;
     // }
+    const a = state.attributes;
+
+    console.log("Footao datetime:", a.datetime);
+
+    if (!a.datetime) {
+      // pas de datetime → on affiche quand même
+    } else {
     const matchTime = new Date(a.datetime.replace(" ", "T"));
     matchTime.setHours(matchTime.getHours() + 3);
-
     if (new Date() > matchTime) {
       this.innerHTML = "";
-      return;
+    return;
     }
+}
 
     // Attributs du match
     const logoDom  = a.logoDomicile  || a.team_domicile_logo  || "";
