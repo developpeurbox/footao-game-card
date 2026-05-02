@@ -28,7 +28,7 @@ class FootaoGameCard extends HTMLElement {
     //  this.innerHTML = "";
     //  return;
     // }
-    const matchTime = new Date(a.datetime); // ou le champ datetime de ton attribut
+    const matchTime = new Date(a.datetime.replace(" ", "T"));
     matchTime.setHours(matchTime.getHours() + 3);
 
     if (new Date() > matchTime) {
