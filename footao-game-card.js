@@ -35,13 +35,13 @@ class FootaoGameCard extends HTMLElement {
     if (!a.datetime) {
       // pas de datetime → on affiche quand même
     } else {
-    const matchTime = new Date(a.datetime.replace(" ", "T"));
-    matchTime.setHours(matchTime.getHours() + 3);
-    if (new Date() > matchTime) {
-      this.innerHTML = "";
-    return;
+      const matchTime = new Date(a.datetime.replace(" ", "T"));
+      matchTime.setHours(matchTime.getHours() + 3);
+      if (new Date() > matchTime) {
+        this.innerHTML = "";
+      return;
+      }
     }
-}
 
     // Attributs du match
     const logoDom  = a.logoDomicile  || a.team_domicile_logo  || "";
