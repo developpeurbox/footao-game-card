@@ -21,7 +21,7 @@ class FootaoGameCard extends HTMLElement {
       return;
     }
 
-    // const a = state.attributes;
+    const a = state.attributes;
 
     // Si display=false → carte masquée
     // if (a.display === false) {
