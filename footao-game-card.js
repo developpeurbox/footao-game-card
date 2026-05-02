@@ -21,10 +21,17 @@ class FootaoGameCard extends HTMLElement {
       return;
     }
 
-    const a = state.attributes;
+    // const a = state.attributes;
 
     // Si display=false → carte masquée
-    if (a.display === false) {
+    // if (a.display === false) {
+    //  this.innerHTML = "";
+    //  return;
+    // }
+    const matchTime = new Date(a.datetime); // ou le champ datetime de ton attribut
+    matchTime.setHours(matchTime.getHours() + 3);
+
+    if (new Date() > matchTime) {
       this.innerHTML = "";
       return;
     }
