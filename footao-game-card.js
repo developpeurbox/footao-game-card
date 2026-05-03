@@ -1,5 +1,5 @@
 /* ========================================================
-   Footao Game Card  — v1.4
+   Footao Game Card  — v1.5
    ======================================================== */
 
 class FootaoGameCard extends HTMLElement {
@@ -7,7 +7,6 @@ class FootaoGameCard extends HTMLElement {
   setConfig(config) {
     if (!config.entity) throw new Error("Vous devez définir une entité.");
     this._config = config;
-    // Forcer le re-render si hass est déjà disponible (ex: après sauvegarde config)
     if (this._hass) this.hass = this._hass;
   }
 
@@ -23,26 +22,105 @@ class FootaoGameCard extends HTMLElement {
 
     const b = state.attributes;
 
-// Si datetime_fin dépassée → carte masquée
     const now = new Date();
     const fin = b.datetime_fin ? new Date(b.datetime_fin.replace(" ", "T")) : null;
-    if (fin && fin < now) {
-     this.innerHTML = "";
-     return;
-    }
-
-    // Attributs du match
-    const logoDom  = a.logoDomicile  || a.team_domicile_logo  || "";
-    const logoExt  = a.logoExterieur || a.team_exterieur_logo || "";
-    const gameName = a.game          || a.event_name          || "";
-    const chaine   = a.chaine        || state.state           || "";
-    const heure    = a.heure         || "";
-    const date     = a.date          || "";
-    const sprite   = a.logo          || "";
 
     // Couleurs configurables — appliquées via CSS custom properties sur l'hôte
     this.style.setProperty("--footao-footer-bg",    this._config.footer_bg    || "rgba(0,0,0,0.45)");
     this.style.setProperty("--footao-footer-color", this._config.footer_color || "#c8a96e");
+
+    // Si datetime_fin dépassée → carte état vide (logo + nom + message)
+    if (fin && fin < now) {
+      const logoDom  = b.logoDomicile || b.team_domicile_logo || "";
+      const teamName = b.domicile     || b.team               || "";
+
+      this.innerHTML = `
+        <ha-card>
+          <style>
+            .foot-card {
+              background: #1e1e2e;
+              border-radius: 16px;
+              position: relative;
+              overflow: hidden;
+              border: 1px solid rgba(255,255,255,.07);
+              font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            }
+            .foot-top {
+              position: relative;
+              padding: 18px 16px 14px;
+            }
+            .foot-bg {
+              position: absolute;
+              inset: 0;
+              z-index: 0;
+              pointer-events: none;
+              overflow: hidden;
+            }
+            .foot-bg img {
+              position: absolute;
+              top: -10px;
+              left: -30px;
+              width: 180px;
+              height: 180px;
+              object-fit: contain;
+              opacity: .15;
+              filter: grayscale(40%) blur(1px);
+            }
+            .foot-body { position: relative; z-index: 1; }
+            .foot-empty {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              gap: 10px;
+            }
+            .team-logo {
+              width: 72px;
+              height: 72px;
+              object-fit: contain;
+              filter: drop-shadow(0 4px 14px rgba(0,0,0,.7));
+            }
+            .team-name {
+              font-size: 13px;
+              font-weight: 600;
+              color: rgba(255,255,255,.75);
+              text-align: center;
+            }
+            .no-match-msg {
+              font-size: 11px;
+              color: rgba(255,255,255,.35);
+              text-align: center;
+              font-style: italic;
+            }
+          </style>
+          <div class="foot-card">
+            <div class="foot-top">
+              <div class="foot-bg">
+                ${logoDom ? `<img src="${logoDom}">` : ""}
+              </div>
+              <div class="foot-body">
+                <div class="foot-empty">
+                  ${logoDom
+                    ? `<img class="team-logo" src="${logoDom}">`
+                    : `<div style="width:72px;height:72px"></div>`}
+                  ${teamName ? `<span class="team-name">${teamName}</span>` : ""}
+                  <span class="no-match-msg">Aucun match prévu prochainement</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ha-card>
+      `;
+      return;
+    }
+
+    // Attributs du match
+    const logoDom  = b.logoDomicile  || b.team_domicile_logo  || "";
+    const logoExt  = b.logoExterieur || b.team_exterieur_logo || "";
+    const gameName = b.game          || b.event_name          || "";
+    const chaine   = b.chaine        || state.state           || "";
+    const heure    = b.heure         || "";
+    const date     = b.date          || "";
+    const sprite   = b.logo          || "";
 
     this.innerHTML = `
       <ha-card>
@@ -135,8 +213,10 @@ class FootaoGameCard extends HTMLElement {
               <div class="foot-game">${gameName}</div>
               <div class="teams">
                 <div class="team-block">
-                  ${logoDom ? `<img class="team-logo" src="${logoDom}">` : `<div style="width:72px;height:72px"></div>`}
-                  <span class="team-name">${a.domicile || ""}</span>
+                  ${logoDom
+                    ? `<img class="team-logo" src="${logoDom}">`
+                    : `<div style="width:72px;height:72px"></div>`}
+                  <span class="team-name">${b.domicile || ""}</span>
                 </div>
                 <div class="center">
                   ${sprite ? `<div class="sprite" style="${sprite}"></div>` : ""}
@@ -144,8 +224,10 @@ class FootaoGameCard extends HTMLElement {
                   <div class="heure">${heure}</div>
                 </div>
                 <div class="team-block">
-                  ${logoExt ? `<img class="team-logo" src="${logoExt}">` : `<div style="width:72px;height:72px"></div>`}
-                  <span class="team-name">${a.exterieur || ""}</span>
+                  ${logoExt
+                    ? `<img class="team-logo" src="${logoExt}">`
+                    : `<div style="width:72px;height:72px"></div>`}
+                  <span class="team-name">${b.exterieur || ""}</span>
                 </div>
               </div>
             </div>
@@ -199,12 +281,10 @@ class FootaoGameCardEditor extends HTMLElement {
       .filter(e => e.startsWith("sensor.footao_"))
       .sort();
 
-    const current      = this._config?.entity       || "";
-    const footerBg     = this._config?.footer_bg    || "rgba(0,0,0,0.45)";
-    const footerColor  = this._config?.footer_color || "#c8a96e";
+    const current     = this._config?.entity       || "";
+    const footerBg    = this._config?.footer_bg    || "rgba(0,0,0,0.45)";
+    const footerColor = this._config?.footer_color || "#c8a96e";
 
-    // Convertit une couleur CSS en valeur utilisable dans <input type="color">
-    // input[type=color] n'accepte que les hex #rrggbb
     const toHex = (c) => {
       if (!c || c.startsWith("rgba") || c.startsWith("rgb")) return "#000000";
       return c;
