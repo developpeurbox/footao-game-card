@@ -30,17 +30,16 @@ class FootaoGameCard extends HTMLElement {
     // }
     const a = state.attributes;
 
-    console.log("Footao datetime:", a.datetime);
+    console.log("Footao datetime:", a.datetime_fin);
 
-    if (!a.datetime) {
-      // pas de datetime → on affiche quand même
-    } else {
-      const matchTime = new Date(a.datetime.replace(" ", "T"));
-      matchTime.setHours(matchTime.getHours() + 3);
-      if (new Date() > matchTime) {
-        this.innerHTML = "";
-      return;
-      }
+    
+
+// Si datetime_fin dépassée → carte masquée
+    const now = new Date();
+    const fin = a.datetime_fin ? new Date(a.datetime_fin.replace(" ", "T")) : null;
+    if (fin && fin < now) {
+     this.innerHTML = "";
+     return;
     }
 
     // Attributs du match
