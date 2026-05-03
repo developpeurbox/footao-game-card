@@ -1,8 +1,8 @@
 /* ========================================================
-   Footao Game Card  — v1.5
+   Footao Game Card  — v0.0.8
    ======================================================== */
 
-const FOOTAO_GAME_CARD_VERSION = "1.5";
+const FOOTAO_GAME_CARD_VERSION = "v0.0.8";
 
 class FootaoGameCard extends HTMLElement {
 
