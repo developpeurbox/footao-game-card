@@ -21,15 +21,7 @@ class FootaoGameCard extends HTMLElement {
       return;
     }
 
-    const a = state.attributes;
-
-    // Si display=false → carte masquée
-     if (a.display === false) {
-      this.innerHTML = "";
-      return;
-     }
     const b = state.attributes;
-    console.log("Footao datetime:", b.datetime_fin);
 
 // Si datetime_fin dépassée → carte masquée
     const now = new Date();
