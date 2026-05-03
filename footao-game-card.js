@@ -2,11 +2,14 @@
    Footao Game Card  — v1.5
    ======================================================== */
 
+const FOOTAO_GAME_CARD_VERSION = "1.5";
+
 class FootaoGameCard extends HTMLElement {
 
   setConfig(config) {
     if (!config.entity) throw new Error("Vous devez définir une entité.");
     this._config = config;
+    console.info(`%c FOOTAO-GAME-CARD %c v${FOOTAO_GAME_CARD_VERSION} `, "color:#c8a96e;background:#1e1e2e;font-weight:700;padding:2px 4px;border-radius:4px 0 0 4px", "color:#1e1e2e;background:#c8a96e;font-weight:700;padding:2px 4px;border-radius:0 4px 4px 0");
     if (this._hass) this.hass = this._hass;
   }
 
