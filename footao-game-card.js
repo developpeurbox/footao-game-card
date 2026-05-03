@@ -29,18 +29,15 @@ class FootaoGameCard extends HTMLElement {
       return;
      }
     const b = state.attributes;
-
     console.log("Footao datetime:", b.datetime_fin);
-
-    
 
 // Si datetime_fin dépassée → carte masquée
     const now = new Date();
-    //const fin = b.datetime_fin ? new Date(b.datetime_fin.replace(" ", "T")) : null;
-    //if (fin && fin < now) {
-    // this.innerHTML = "";
-    // return;
-    //}
+    const fin = b.datetime_fin ? new Date(b.datetime_fin.replace(" ", "T")) : null;
+    if (fin && fin < now) {
+     this.innerHTML = "";
+     return;
+    }
 
     // Attributs du match
     const logoDom  = a.logoDomicile  || a.team_domicile_logo  || "";
