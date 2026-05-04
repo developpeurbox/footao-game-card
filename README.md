@@ -48,7 +48,15 @@ Vous pouvez désormais personnaliser l'apparence du pied de page (*footer*) dire
 * **Couleur du texte :** Ajustez `footer_color` pour assurer une visibilité optimale selon votre fond
 
 ---
+## 📭 **Aucun match prévu**
 
+Lorsque aucun match n'est trouvé pour l'équipe configurée (match passé ou calendrier vide), la carte affiche automatiquement un état simplifié : le logo de l'équipe, son nom, et un message d'information.
+
+![Carte aucun match](/doc/images/example_no_game.png "Affichage sans match prévu")
+
+> **Aucun match prévu prochainement** s'affiche à la place des informations de diffusion habituelles. Dès qu'un prochain match est disponible dans le capteur, la carte reprend son affichage normal automatiquement.
+
+---
 ## 💬 **Communauté & Support**
 🗣️ **Forum Home Assistant** : [Discuter ici](https://community.home-assistant.io/)
 
