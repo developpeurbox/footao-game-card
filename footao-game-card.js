@@ -34,8 +34,8 @@ class FootaoGameCard extends HTMLElement {
 
     // Si datetime_fin dépassée → carte état vide (logo + nom + message)
     if (fin && fin < now) {
-      const logoDom  = b.logoDomicile || b.team_domicile_logo || "";
-      const teamName = b.domicile     || b.team               || "";
+      const logoDom  = b.logoTeam || b.logoDomicile || "";
+      const teamName = b.team     || b.domicile               || "";
 
       this.innerHTML = `
         <ha-card>
