@@ -1,8 +1,8 @@
 /* ========================================================
-   Footao Game Card  — v0.0.8
+   Footao Game Card  — v0.0.9
    ======================================================== */
 
-const FOOTAO_GAME_CARD_VERSION = "v0.0.8";
+const FOOTAO_GAME_CARD_VERSION = "v0.0.9";
 
 class FootaoGameCard extends HTMLElement {
 
@@ -32,10 +32,12 @@ class FootaoGameCard extends HTMLElement {
     this.style.setProperty("--footao-footer-bg",    this._config.footer_bg    || "rgba(0,0,0,0.45)");
     this.style.setProperty("--footao-footer-color", this._config.footer_color || "#c8a96e");
 
-    // Si datetime_fin dépassée → carte état vide (logo + nom + message)
-    if (fin && fin < now) {
+    // Pas de match : soit datetime_fin dépassée, soit aucun attribut de match présent
+    const pasDeMatch = (fin && fin < now) || (!b.domicile && !b.exterieur);
+
+    if (pasDeMatch) {
       const logoDom  = b.logoTeam || b.logoDomicile || "";
-      const teamName = b.team     || b.domicile               || "";
+      const teamName = b.team     || b.domicile     || "";
 
       this.innerHTML = `
         <ha-card>
