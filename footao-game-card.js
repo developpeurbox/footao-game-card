@@ -1,8 +1,8 @@
 /* ========================================================
-   Footao Game Card  — v0.0.9
+   Footao Game Card  — v0.0.10
    ======================================================== */
 
-const FOOTAO_GAME_CARD_VERSION = "v0.0.9";
+const FOOTAO_GAME_CARD_VERSION = "v0.0.10";
 
 class FootaoGameCard extends HTMLElement {
 
@@ -163,10 +163,20 @@ class FootaoGameCard extends HTMLElement {
           .foot-body { position: relative; z-index: 1; }
           .foot-game {
             text-align: center;
+            margin-bottom: 20px;
+          }
+          .foot-game-name {
             font-weight: 700;
             color: #e0e0f0;
-            margin-bottom: 20px;
-            font-size: 14px;
+            font-size: 16px;
+            display: block;
+          }
+          .foot-game-competition {
+            font-size: 11px;
+            color: rgba(255,255,255,.4);
+            display: block;
+            margin-top: 3px;
+            font-style: italic;
           }
           .teams {
             display: flex;
@@ -215,7 +225,12 @@ class FootaoGameCard extends HTMLElement {
               ${logoExt ? `<img class="bg-right" src="${logoExt}">` : ""}
             </div>
             <div class="foot-body">
-              <div class="foot-game">${gameName}</div>
+              <div class="foot-game">
+                <span class="foot-game-name">${gameName}</span>
+                ${b.competition
+                  ? `<span class="foot-game-competition">${b.competition}</span>`
+                  : ""}
+              </div>
               <div class="teams">
                 <div class="team-block">
                   ${logoDom
