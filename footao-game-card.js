@@ -1,8 +1,8 @@
 /* ========================================================
-   Footao Game Card  — v0.0.10
+   Footao Game Card  — v0.0.11
    ======================================================== */
 
-const FOOTAO_GAME_CARD_VERSION = "v0.0.10";
+const FOOTAO_GAME_CARD_VERSION = "v0.0.11";
 
 class FootaoGameCard extends HTMLElement {
 
@@ -119,8 +119,8 @@ class FootaoGameCard extends HTMLElement {
     }
 
     // Attributs du match
-    const logoDom  = b.logoDomicile  || b.team_domicile_logo  || "";
-    const logoExt  = b.logoExterieur || b.team_exterieur_logo || "";
+    const logoDom = b.LogoDomicile  || b.logoDomicile  || b.team_domicile_logo  || "";
+    const logoExt = b.LogoExterieur || b.logoExterieur || b.team_exterieur_logo || "";
     const gameName = b.game          || b.event_name          || "";
     const chaine   = b.chaine        || state.state           || "";
     const heure    = b.heure         || "";
