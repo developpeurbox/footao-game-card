@@ -1,8 +1,8 @@
 /* ========================================================
-   Footao Game Card  — v0.0.11
+   Footao Game Card  — v0.0.12
    ======================================================== */
 
-const FOOTAO_GAME_CARD_VERSION = "v0.0.11";
+const FOOTAO_GAME_CARD_VERSION = "v0.0.12";
 
 class FootaoGameCard extends HTMLElement {
 
@@ -36,8 +36,8 @@ class FootaoGameCard extends HTMLElement {
     const pasDeMatch = (fin && fin < now) || (!b.domicile && !b.exterieur);
 
     if (pasDeMatch) {
-      const logoDom  = b.logoTeam || b.logoDomicile || "";
-      const teamName = b.team     || b.domicile     || "";
+      const logoDom  = b.LogoTeam || b.logoTeam || b.LogoDomicile || b.logoDomicile || "";
+      const teamName = b.team     || b.domicile || "";
 
       this.innerHTML = `
         <ha-card>
@@ -119,10 +119,10 @@ class FootaoGameCard extends HTMLElement {
     }
 
     // Attributs du match
-    const logoDom = b.LogoDomicile  || b.logoDomicile  || b.team_domicile_logo  || "";
-    const logoExt = b.LogoExterieur || b.logoExterieur || b.team_exterieur_logo || "";
-    const gameName = b.game          || b.event_name          || "";
-    const chaine   = b.chaine        || state.state           || "";
+    const logoDom  = b.LogoDomicile  || b.logoDomicile  || b.team_domicile_logo  || "";
+    const logoExt  = b.LogoExterieur || b.logoExterieur || b.team_exterieur_logo || "";
+    const gameName = b.game          || b.event_name    || "";
+    const chaine   = b.chaine        || state.state     || "";
     const heure    = b.heure         || "";
     const date     = b.date          || "";
     const sprite   = b.logo          || "";
@@ -158,8 +158,8 @@ class FootaoGameCard extends HTMLElement {
             opacity: .15;
             filter: grayscale(40%) blur(1px);
           }
-          .bg-left  { left: -30px; }
-          .bg-right { right: -30px; }
+          .bg-left  { left: -30px; right: auto; }
+          .bg-right { right: -30px; left: auto; }
           .foot-body { position: relative; z-index: 1; }
           .foot-game {
             text-align: center;
