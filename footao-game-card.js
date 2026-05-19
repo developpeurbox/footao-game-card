@@ -1,10 +1,16 @@
 /* ========================================================
-   Footao Game Card  — v0.0.13
+   Footao Game Card  — v0.0.14
    ======================================================== */
 
-const FOOTAO_GAME_CARD_VERSION = "v0.0.13";
+const FOOTAO_GAME_CARD_VERSION = "v0.0.14";
 
 class FootaoGameCard extends HTMLElement {
+
+  constructor() {
+    super();
+    // ID unique par instance de carte
+    this._uid = "footao-" + Math.random().toString(36).slice(2, 9);
+  }
 
   setConfig(config) {
     if (!config.entity) throw new Error("Vous devez définir une entité.");
@@ -23,16 +29,15 @@ class FootaoGameCard extends HTMLElement {
       return;
     }
 
-    const b = state.attributes;
+    const b   = state.attributes;
+    const uid = this._uid;
 
     const now = new Date();
     const fin = b.datetime_fin ? new Date(b.datetime_fin.replace(" ", "T")) : null;
 
-    // Couleurs configurables — appliquées via CSS custom properties sur l'hôte
     this.style.setProperty("--footao-footer-bg",    this._config.footer_bg    || "rgba(0,0,0,0.45)");
     this.style.setProperty("--footao-footer-color", this._config.footer_color || "#c8a96e");
 
-    // Pas de match : soit datetime_fin dépassée, soit aucun attribut de match présent
     const pasDeMatch = (fin && fin < now) || (!b.domicile && !b.exterieur);
 
     if (pasDeMatch) {
@@ -42,7 +47,7 @@ class FootaoGameCard extends HTMLElement {
       this.innerHTML = `
         <ha-card>
           <style>
-            .foot-card {
+            #${uid} .foot-card {
               background: #1e1e2e;
               border-radius: 16px;
               position: relative;
@@ -50,18 +55,18 @@ class FootaoGameCard extends HTMLElement {
               border: 1px solid rgba(255,255,255,.07);
               font-family: -apple-system, BlinkMacSystemFont, sans-serif;
             }
-            .foot-top {
+            #${uid} .foot-top {
               position: relative;
               padding: 18px 16px 14px;
             }
-            .foot-bg {
+            #${uid} .foot-bg {
               position: absolute;
               inset: 0;
               z-index: 0;
               pointer-events: none;
               overflow: hidden;
             }
-            .foot-bg img {
+            #${uid} .foot-bg img {
               position: absolute;
               top: -10px;
               left: -30px;
@@ -71,44 +76,46 @@ class FootaoGameCard extends HTMLElement {
               opacity: .15;
               filter: grayscale(40%) blur(1px);
             }
-            .foot-body { position: relative; z-index: 1; }
-            .foot-empty {
+            #${uid} .foot-body { position: relative; z-index: 1; }
+            #${uid} .foot-empty {
               display: flex;
               flex-direction: column;
               align-items: center;
               gap: 10px;
             }
-            .team-logo {
+            #${uid} .team-logo {
               width: 72px;
               height: 72px;
               object-fit: contain;
               filter: drop-shadow(0 4px 14px rgba(0,0,0,.7));
             }
-            .team-name {
+            #${uid} .team-name {
               font-size: 13px;
               font-weight: 600;
               color: rgba(255,255,255,.75);
               text-align: center;
             }
-            .no-match-msg {
+            #${uid} .no-match-msg {
               font-size: 11px;
               color: rgba(255,255,255,.35);
               text-align: center;
               font-style: italic;
             }
           </style>
-          <div class="foot-card">
-            <div class="foot-top">
-              <div class="foot-bg">
-                ${logoDom ? `<img src="${logoDom}">` : ""}
-              </div>
-              <div class="foot-body">
-                <div class="foot-empty">
-                  ${logoDom
-                    ? `<img class="team-logo" src="${logoDom}">`
-                    : `<div style="width:72px;height:72px"></div>`}
-                  ${teamName ? `<span class="team-name">${teamName}</span>` : ""}
-                  <span class="no-match-msg">Aucun match prévu prochainement</span>
+          <div id="${uid}">
+            <div class="foot-card">
+              <div class="foot-top">
+                <div class="foot-bg">
+                  ${logoDom ? `<img src="${logoDom}">` : ""}
+                </div>
+                <div class="foot-body">
+                  <div class="foot-empty">
+                    ${logoDom
+                      ? `<img class="team-logo" src="${logoDom}">`
+                      : `<div style="width:72px;height:72px"></div>`}
+                    ${teamName ? `<span class="team-name">${teamName}</span>` : ""}
+                    <span class="no-match-msg">Aucun match prévu prochainement</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -118,7 +125,6 @@ class FootaoGameCard extends HTMLElement {
       return;
     }
 
-    // Attributs du match
     const logoDom  = b.LogoDomicile  || b.logoDomicile  || b.team_domicile_logo  || "";
     const logoExt  = b.LogoExterieur || b.logoExterieur || b.team_exterieur_logo || "";
     const gameName = b.game          || b.event_name    || "";
@@ -130,7 +136,7 @@ class FootaoGameCard extends HTMLElement {
     this.innerHTML = `
       <ha-card>
         <style>
-          .foot-card {
+          #${uid} .foot-card {
             background: #1e1e2e;
             border-radius: 16px;
             position: relative;
@@ -138,18 +144,18 @@ class FootaoGameCard extends HTMLElement {
             border: 1px solid rgba(255,255,255,.07);
             font-family: -apple-system, BlinkMacSystemFont, sans-serif;
           }
-          .foot-top {
+          #${uid} .foot-top {
             position: relative;
             padding: 18px 16px 14px;
           }
-          .foot-bg {
+          #${uid} .foot-bg {
             position: absolute;
             inset: 0;
             z-index: 0;
             pointer-events: none;
             overflow: hidden;
           }
-          .foot-bg img {
+          #${uid} .foot-bg img {
             position: absolute;
             top: -10px;
             width: 180px;
@@ -158,45 +164,45 @@ class FootaoGameCard extends HTMLElement {
             opacity: .15;
             filter: grayscale(40%) blur(1px);
           }
-          .bg-left  { left: -30px; right: auto; }
-          .bg-right { right: -30px; left: auto; }
-          .foot-body { position: relative; z-index: 1; }
-          .foot-game {
+          #${uid} .bg-left  { left: -30px; right: auto; }
+          #${uid} .bg-right { right: -30px; left: auto; }
+          #${uid} .foot-body { position: relative; z-index: 1; }
+          #${uid} .foot-game {
             text-align: center;
             font-weight: 700;
             color: #e0e0f0;
             margin-bottom: 20px;
             font-size: 14px;
           }
-          .teams {
+          #${uid} .teams {
             display: flex;
             justify-content: space-between;
             align-items: center;
           }
-          .team-block {
+          #${uid} .team-block {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 6px;
             width: 80px;
           }
-          .team-logo {
+          #${uid} .team-logo {
             width: 72px;
             height: 72px;
             object-fit: contain;
             filter: drop-shadow(0 4px 14px rgba(0,0,0,.7));
           }
-          .team-name {
+          #${uid} .team-name {
             font-size: 11px;
             color: rgba(255,255,255,.55);
             text-align: center;
             line-height: 1.2;
           }
-          .center { text-align: center; flex: 1; }
-          .sprite  { width: 64px; height: 18px; margin: 0 auto 4px; }
-          .chaine  { font-size: 10px; color: rgba(255,255,255,.4); margin-bottom: 4px; }
-          .heure   { font-size: 28px; font-weight: 800; color: #fff; }
-          .foot-footer {
+          #${uid} .center { text-align: center; flex: 1; }
+          #${uid} .sprite  { width: 64px; height: 18px; margin: 0 auto 4px; }
+          #${uid} .chaine  { font-size: 10px; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+          #${uid} .heure   { font-size: 28px; font-weight: 800; color: #fff; }
+          #${uid} .foot-footer {
             background: var(--footao-footer-bg, rgba(0,0,0,0.45));
             border-top: 1px solid rgba(255,255,255,.07);
             padding: 11px 16px;
@@ -208,36 +214,38 @@ class FootaoGameCard extends HTMLElement {
           }
         </style>
 
-        <div class="foot-card">
-          <div class="foot-top">
-            <div class="foot-bg">
-              ${logoDom ? `<img class="bg-left"  src="${logoDom}">` : ""}
-              ${logoExt ? `<img class="bg-right" src="${logoExt}">` : ""}
-            </div>
-            <div class="foot-body">
-              <div class="foot-game">${gameName}</div>
-              <div class="teams">
-                <div class="team-block">
-                  ${logoDom
-                    ? `<img class="team-logo" src="${logoDom}">`
-                    : `<div style="width:72px;height:72px"></div>`}
-                  <span class="team-name">${b.domicile || ""}</span>
-                </div>
-                <div class="center">
-                  ${sprite ? `<div class="sprite" style="${sprite}"></div>` : ""}
-                  <div class="chaine">${chaine}</div>
-                  <div class="heure">${heure}</div>
-                </div>
-                <div class="team-block">
-                  ${logoExt
-                    ? `<img class="team-logo" src="${logoExt}">`
-                    : `<div style="width:72px;height:72px"></div>`}
-                  <span class="team-name">${b.exterieur || ""}</span>
+        <div id="${uid}">
+          <div class="foot-card">
+            <div class="foot-top">
+              <div class="foot-bg">
+                ${logoDom ? `<img class="bg-left"  src="${logoDom}">` : ""}
+                ${logoExt ? `<img class="bg-right" src="${logoExt}">` : ""}
+              </div>
+              <div class="foot-body">
+                <div class="foot-game">${gameName}</div>
+                <div class="teams">
+                  <div class="team-block">
+                    ${logoDom
+                      ? `<img class="team-logo" src="${logoDom}">`
+                      : `<div style="width:72px;height:72px"></div>`}
+                    <span class="team-name">${b.domicile || ""}</span>
+                  </div>
+                  <div class="center">
+                    ${sprite ? `<div class="sprite" style="${sprite}"></div>` : ""}
+                    <div class="chaine">${chaine}</div>
+                    <div class="heure">${heure}</div>
+                  </div>
+                  <div class="team-block">
+                    ${logoExt
+                      ? `<img class="team-logo" src="${logoExt}">`
+                      : `<div style="width:72px;height:72px"></div>`}
+                    <span class="team-name">${b.exterieur || ""}</span>
+                  </div>
                 </div>
               </div>
             </div>
+            ${date ? `<div class="foot-footer">${date}</div>` : ""}
           </div>
-          ${date ? `<div class="foot-footer">${date}</div>` : ""}
         </div>
       </ha-card>
     `;
@@ -325,7 +333,6 @@ class FootaoGameCardEditor extends HTMLElement {
 
       <div class="editor">
 
-        <!-- Sensor -->
         <div class="field">
           <label>Sensor Footao</label>
           <select id="entity-select">
@@ -334,7 +341,6 @@ class FootaoGameCardEditor extends HTMLElement {
           </select>
         </div>
 
-        <!-- Couleur fond footer -->
         <div class="field">
           <label>Couleur de fond du bandeau</label>
           <div class="color-row">
@@ -344,7 +350,6 @@ class FootaoGameCardEditor extends HTMLElement {
           <span class="hint">Valeur CSS acceptée : #hex, rgb(), rgba()</span>
         </div>
 
-        <!-- Couleur texte footer -->
         <div class="field">
           <label>Couleur du texte du bandeau</label>
           <div class="color-row">
