@@ -1,8 +1,8 @@
 /* ========================================================
-   Footao Game Card  — v0.0.12
+   Footao Game Card  — v0.0.13
    ======================================================== */
 
-const FOOTAO_GAME_CARD_VERSION = "v0.0.12";
+const FOOTAO_GAME_CARD_VERSION = "v0.0.13";
 
 class FootaoGameCard extends HTMLElement {
 
@@ -163,20 +163,10 @@ class FootaoGameCard extends HTMLElement {
           .foot-body { position: relative; z-index: 1; }
           .foot-game {
             text-align: center;
-            margin-bottom: 20px;
-          }
-          .foot-game-name {
             font-weight: 700;
             color: #e0e0f0;
-            font-size: 16px;
-            display: block;
-          }
-          .foot-game-competition {
-            font-size: 11px;
-            color: rgba(255,255,255,.4);
-            display: block;
-            margin-top: 3px;
-            font-style: italic;
+            margin-bottom: 20px;
+            font-size: 14px;
           }
           .teams {
             display: flex;
@@ -225,12 +215,7 @@ class FootaoGameCard extends HTMLElement {
               ${logoExt ? `<img class="bg-right" src="${logoExt}">` : ""}
             </div>
             <div class="foot-body">
-              <div class="foot-game">
-                <span class="foot-game-name">${gameName}</span>
-                ${b.competition
-                  ? `<span class="foot-game-competition">${b.competition}</span>`
-                  : ""}
-              </div>
+              <div class="foot-game">${gameName}</div>
               <div class="teams">
                 <div class="team-block">
                   ${logoDom
@@ -372,8 +357,6 @@ class FootaoGameCardEditor extends HTMLElement {
       </div>
     `;
 
-    // ── Listeners ────────────────────────────────────────────────────────────
-
     const fire = () => {
       this.dispatchEvent(new CustomEvent("config-changed", {
         bubbles: true, composed: true,
@@ -381,32 +364,27 @@ class FootaoGameCardEditor extends HTMLElement {
       }));
     };
 
-    // Sensor
     this.shadowRoot.getElementById("entity-select").addEventListener("change", (ev) => {
       if (!ev.target.value) return;
       this._config = { ...this._config, entity: ev.target.value };
       fire();
     });
 
-    // Fond footer — picker → texte
     this.shadowRoot.getElementById("footer-bg-picker").addEventListener("input", (ev) => {
       this.shadowRoot.getElementById("footer-bg-text").value = ev.target.value;
       this._config = { ...this._config, footer_bg: ev.target.value };
       fire();
     });
-    // Fond footer — texte libre
     this.shadowRoot.getElementById("footer-bg-text").addEventListener("change", (ev) => {
       this._config = { ...this._config, footer_bg: ev.target.value };
       fire();
     });
 
-    // Texte footer — picker → texte
     this.shadowRoot.getElementById("footer-color-picker").addEventListener("input", (ev) => {
       this.shadowRoot.getElementById("footer-color-text").value = ev.target.value;
       this._config = { ...this._config, footer_color: ev.target.value };
       fire();
     });
-    // Texte footer — texte libre
     this.shadowRoot.getElementById("footer-color-text").addEventListener("change", (ev) => {
       this._config = { ...this._config, footer_color: ev.target.value };
       fire();
