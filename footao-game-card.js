@@ -1,14 +1,13 @@
 /* ========================================================
-   Footao Game Card  — v0.0.14
+   Footao Game Card  — v0.0.15
    ======================================================== */
 
-const FOOTAO_GAME_CARD_VERSION = "v0.0.14";
+const FOOTAO_GAME_CARD_VERSION = "v0.0.15";
 
 class FootaoGameCard extends HTMLElement {
 
   constructor() {
     super();
-    // ID unique par instance de carte
     this._uid = "footao-" + Math.random().toString(36).slice(2, 9);
   }
 
@@ -169,10 +168,20 @@ class FootaoGameCard extends HTMLElement {
           #${uid} .foot-body { position: relative; z-index: 1; }
           #${uid} .foot-game {
             text-align: center;
+            margin-bottom: 20px;
+          }
+          #${uid} .foot-game-name {
             font-weight: 700;
             color: #e0e0f0;
-            margin-bottom: 20px;
-            font-size: 14px;
+            font-size: 16px;
+            display: block;
+          }
+          #${uid} .foot-game-competition {
+            font-size: 11px;
+            color: rgba(255,255,255,.4);
+            display: block;
+            margin-top: 3px;
+            font-style: italic;
           }
           #${uid} .teams {
             display: flex;
@@ -222,7 +231,12 @@ class FootaoGameCard extends HTMLElement {
                 ${logoExt ? `<img class="bg-right" src="${logoExt}">` : ""}
               </div>
               <div class="foot-body">
-                <div class="foot-game">${gameName}</div>
+                <div class="foot-game">
+                  <span class="foot-game-name">${gameName}</span>
+                  ${b.competition
+                    ? `<span class="foot-game-competition">${b.competition}</span>`
+                    : ""}
+                </div>
                 <div class="teams">
                   <div class="team-block">
                     ${logoDom
