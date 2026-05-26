@@ -60,8 +60,6 @@ Lorsque aucun match n'est trouvé pour l'équipe configurée (match passé ou ca
 ## 💬 **Communauté & Support**
 🗣️ **Forum Home Assistant** : [Discuter ici](https://community.home-assistant.io/)
 
-☕ **Soutenir le projet** : 
-
 ---
 
 
