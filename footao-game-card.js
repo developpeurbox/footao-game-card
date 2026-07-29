@@ -1,8 +1,8 @@
 /* ========================================================
-   Footao Game Card  — v0.0.15
+   Footao Game Card  — v0.0.16
    ======================================================== */
 
-const FOOTAO_GAME_CARD_VERSION = "v0.0.15";
+const FOOTAO_GAME_CARD_VERSION = "v0.0.16";
 
 class FootaoGameCard extends HTMLElement {
 
@@ -217,7 +217,7 @@ class FootaoGameCard extends HTMLElement {
             padding: 11px 16px;
             text-align: center;
             color: var(--footao-footer-color, #c8a96e);
-            font-size: 13px;
+            font-size: 16px;
             font-weight: 600;
             letter-spacing: .3px;
           }
