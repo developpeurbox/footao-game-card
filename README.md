@@ -39,6 +39,27 @@ footer_bg: "rgba(0,0,0,0.6)"   # Couleur d'arrière-plan du pied de page
 footer_color: "#ffffff"        # Couleur du texte du pied de page
 
 ```
+Pour avoir toutes vos matches
+```yaml
+type: custom:auto-entities
+card:
+  type: entities
+  colum: 2
+  square: false
+filter:
+  include:
+    - options:
+        type: custom:footao-game-card
+      entity_id: sensor.footao*
+      sort:
+        method: attribute
+        attribute: date
+grid_options:
+  columns: 12
+  rows: auto
+```
+
+![Exemple Footao Game Card](/doc/images/all.png "Tous les matchs")
 
 ### 🎨 Personnalisation
 
