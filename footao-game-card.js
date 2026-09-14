@@ -208,7 +208,7 @@ class FootaoGameCard extends HTMLElement {
             line-height: 1.2;
           }
           #${uid} .center { text-align: center; flex: 1; }
-          #${uid} .sprite  { width: 64px; height: 18px; margin: 0 auto 4px; }
+          #${uid} .sprite  { width: 64px; height: 16px; margin: 0 auto 4px; }
           #${uid} .chaine  { font-size: 10px; color: rgba(255,255,255,.4); margin-bottom: 4px; }
           #${uid} .heure   { font-size: 28px; font-weight: 800; color: #fff; }
           #${uid} .foot-footer {
