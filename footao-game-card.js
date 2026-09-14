@@ -177,7 +177,7 @@ class FootaoGameCard extends HTMLElement {
             display: block;
           }
           #${uid} .foot-game-competition {
-            font-size: 11px;
+            font-size: 12px;
             color: rgba(255,255,255,.4);
             display: block;
             margin-top: 3px;
@@ -208,8 +208,8 @@ class FootaoGameCard extends HTMLElement {
             line-height: 1.2;
           }
           #${uid} .center { text-align: center; flex: 1; }
-          #${uid} .sprite  { width: 64px; height: 16px; margin: 0 auto 4px; }
-          #${uid} .chaine  { font-size: 10px; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+          #${uid} .sprite  { width: 64px; height: 15px; margin: 0 auto 4px; }
+          #${uid} .chaine  { font-size: 12px; color: rgba(255,255,255,.4); margin-bottom: 4px; }
           #${uid} .heure   { font-size: 28px; font-weight: 800; color: #fff; }
           #${uid} .foot-footer {
             background: var(--footao-footer-bg, rgba(0,0,0,0.45));
