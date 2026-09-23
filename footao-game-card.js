@@ -1,8 +1,8 @@
 /* ========================================================
-   Footao Game Card  — v0.0.19
+   Footao Game Card  — v0.0.16
    ======================================================== */
 
-const FOOTAO_GAME_CARD_VERSION = "v0.0.19";
+const FOOTAO_GAME_CARD_VERSION = "v0.0.16";
 
 class FootaoGameCard extends HTMLElement {
 
@@ -127,12 +127,13 @@ class FootaoGameCard extends HTMLElement {
     const logoDom  = b.LogoDomicile  || b.logoDomicile  || b.team_domicile_logo  || "";
     const logoExt  = b.LogoExterieur || b.logoExterieur || b.team_exterieur_logo || "";
     const gameName = b.game          || b.event_name    || "";
+    const logo1    = b.Logo1         || b.logo1         || "";
+    const chaine1  = b.chaine1       || "";
+    const logo2    = b.Logo2         || b.logo2         || "";
+    const chaine2  = b.chaine2       || "";
     const heure    = b.heure         || "";
     const date     = b.date          || "";
-    const logo1    = b.logo1        || "";
-    const chaine1  = b.chaine1      || state.state || "";
-    const logo2    = b.logo2        || "";
-    const chaine2  = b.chaine2      || "";
+    const sprite   = b.logo          || "";
 
     this.innerHTML = `
       <ha-card>
@@ -210,11 +211,13 @@ class FootaoGameCard extends HTMLElement {
             line-height: 1.2;
           }
           #${uid} .center { text-align: center; flex: 1; }
+          #${uid} .sprite  { width: 64px; height: 15px; margin: 0 auto 4px; }
+          #${uid} .chaine  { font-size: 12px; color: rgba(255,255,255,.4); margin-bottom: 4px; }
           #${uid} .channel-zone {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 3px;
+            gap: 2px;
             margin-bottom: 5px;
           }
           #${uid} .channel-logo {
@@ -222,17 +225,7 @@ class FootaoGameCard extends HTMLElement {
             height: 24px;
             object-fit: contain;
           }
-          #${uid} .chaine {
-            font-size: 12px;
-            color: rgba(255,255,255,.4);
-            line-height: 1.2;
-          }
-          #${uid} .heure {
-            font-size: 28px;
-            font-weight: 800;
-            color: #fff;
-            margin-top: 3px;
-          }
+          #${uid} .heure   { font-size: 28px; font-weight: 800; color: #fff; }
           #${uid} .foot-footer {
             background: var(--footao-footer-bg, rgba(0,0,0,0.45));
             border-top: 1px solid rgba(255,255,255,.07);
@@ -280,6 +273,10 @@ class FootaoGameCard extends HTMLElement {
                         <div class="chaine">${chaine2}</div>
                       </div>
                     ` : ""}
+
+                    ${!chaine1 && !chaine2
+                      ? `<div class="chaine">${state.state || ""}</div>`
+                      : ""}
 
                     <div class="heure">${heure}</div>
                   </div>
