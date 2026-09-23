@@ -1,8 +1,8 @@
 /* ========================================================
-   Footao Game Card  — v0.1.0
+   Footao Game Card  — v0.1.1
    ======================================================== */
 
-const FOOTAO_GAME_CARD_VERSION = "v0.1.0";
+const FOOTAO_GAME_CARD_VERSION = "v0.1.1";
 
 class FootaoGameCard extends HTMLElement {
 
@@ -262,14 +262,14 @@ class FootaoGameCard extends HTMLElement {
                   <div class="center">
                     ${chaine1 ? `
                       <div class="channel-zone">
-                        ${logo1 ? `<img class="channel-logo" src="${logo1}">` : ""}
+                        ${logo1 ? `<div class="sprite" style="${logo1}"></div>` : ""}
                         <div class="chaine">${chaine1}</div>
                       </div>
                     ` : ""}
 
                     ${chaine2 ? `
                       <div class="channel-zone">
-                        ${logo2 ? `<img class="channel-logo" src="${logo2}">` : ""}
+                        ${logo2 ? `<div class="sprite" style="${logo2}"></div>` : ""}
                         <div class="chaine">${chaine2}</div>
                       </div>
                     ` : ""}
