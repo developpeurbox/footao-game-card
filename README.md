@@ -1,8 +1,9 @@
-[![GitHub Release][releases-shield]][releases]
+[![GitHub Release]( https://img.shields.io/github/v/release/developpeurbox/footao-game-card?style=for-the-badge)](https://github.com/developpeurbox/footao-game-card/releases)
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg?style=for-the-badge)](https://github.com/hacs/integration)
+[![Community Forum]( https://img.shields.io/badge/community-forum-brightgreen.svg?style=for-the-badge)](https://community.home-assistant.io)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge)](https://github.com/developpeurbox/footao-game-card/blob/main/LICENSE)
 
-
-[![Community Forum][forum-shield]][forum]
+[![HACS Action](https://github.com/developpeurbox/footao-game-card/actions/workflows/hacs.yml/badge.svg?style=for-the-badge)](https://github.com/developpeurbox/footao-game-card/actions/workflows/hacs.yml)  
 
 
 # 🏆 **Footao Game Card** 📺
