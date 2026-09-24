@@ -1,8 +1,8 @@
 /* ========================================================
-   Footao Game Card  — v0.1.2
+   Footao Game Card  — v0.1.3
    ======================================================== */
 
-const FOOTAO_GAME_CARD_VERSION = "v0.1.2";
+const FOOTAO_GAME_CARD_VERSION = "v0.1.3";
 
 class FootaoGameCard extends HTMLElement {
 
@@ -188,8 +188,9 @@ class FootaoGameCard extends HTMLElement {
           }
           #${uid} .teams {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
+            gap: 22px;
           }
           #${uid} .team-block {
             display: flex;
@@ -197,6 +198,7 @@ class FootaoGameCard extends HTMLElement {
             align-items: center;
             gap: 6px;
             width: 80px;
+            flex: 0 0 auto;
           }
           #${uid} .team-logo {
             width: 72px;
@@ -210,7 +212,7 @@ class FootaoGameCard extends HTMLElement {
             text-align: center;
             line-height: 1.2;
           }
-          #${uid} .center { text-align: center; flex: 1; }
+          #${uid} .center { text-align: center; flex: 0 0 auto; min-width: 96px; }
           #${uid} .sprite  { width: 64px; height: 15px; margin: 0 auto 4px; }
           #${uid} .chaine  { font-size: 12px; color: rgba(255,255,255,.4); margin-bottom: 4px; }
           #${uid} .channel-zone {
