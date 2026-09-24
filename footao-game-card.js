@@ -1,8 +1,8 @@
 /* ========================================================
-   Footao Game Card  — v0.1.3
+   Footao Game Card  — v0.1.4
    ======================================================== */
 
-const FOOTAO_GAME_CARD_VERSION = "v0.1.3";
+const FOOTAO_GAME_CARD_VERSION = "v0.1.4";
 
 class FootaoGameCard extends HTMLElement {
 
@@ -58,23 +58,6 @@ class FootaoGameCard extends HTMLElement {
               position: relative;
               padding: 18px 16px 14px;
             }
-            #${uid} .foot-bg {
-              position: absolute;
-              inset: 0;
-              z-index: 0;
-              pointer-events: none;
-              overflow: hidden;
-            }
-            #${uid} .foot-bg img {
-              position: absolute;
-              top: -10px;
-              left: -30px;
-              width: 180px;
-              height: 180px;
-              object-fit: contain;
-              opacity: .15;
-              filter: grayscale(40%) blur(1px);
-            }
             #${uid} .foot-body { position: relative; z-index: 1; }
             #${uid} .foot-empty {
               display: flex;
@@ -82,7 +65,30 @@ class FootaoGameCard extends HTMLElement {
               align-items: center;
               gap: 10px;
             }
+            #${uid} .team-logo-wrap {
+              position: relative;
+              width: 72px;
+              height: 72px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+            #${uid} .team-logo-ghost {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              width: 170px;
+              height: 170px;
+              transform: translate(-50%, -50%);
+              object-fit: contain;
+              opacity: .15;
+              filter: grayscale(40%) blur(1px);
+              pointer-events: none;
+              z-index: 0;
+            }
             #${uid} .team-logo {
+              position: relative;
+              z-index: 1;
               width: 72px;
               height: 72px;
               object-fit: contain;
@@ -104,14 +110,14 @@ class FootaoGameCard extends HTMLElement {
           <div id="${uid}">
             <div class="foot-card">
               <div class="foot-top">
-                <div class="foot-bg">
-                  ${logoDom ? `<img src="${logoDom}">` : ""}
-                </div>
                 <div class="foot-body">
                   <div class="foot-empty">
-                    ${logoDom
-                      ? `<img class="team-logo" src="${logoDom}">`
-                      : `<div style="width:72px;height:72px"></div>`}
+                    <div class="team-logo-wrap">
+                      ${logoDom ? `<img class="team-logo-ghost" src="${logoDom}">` : ""}
+                      ${logoDom
+                        ? `<img class="team-logo" src="${logoDom}">`
+                        : `<div style="width:72px;height:72px"></div>`}
+                    </div>
                     ${teamName ? `<span class="team-name">${teamName}</span>` : ""}
                     <span class="no-match-msg">Aucun match prévu prochainement</span>
                   </div>
@@ -133,7 +139,6 @@ class FootaoGameCard extends HTMLElement {
     const chaine2  = b.chaine2       || "";
     const heure    = b.heure         || "";
     const date     = b.date          || "";
-    const sprite   = b.logo          || "";
 
     this.innerHTML = `
       <ha-card>
@@ -150,24 +155,6 @@ class FootaoGameCard extends HTMLElement {
             position: relative;
             padding: 18px 16px 14px;
           }
-          #${uid} .foot-bg {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            overflow: hidden;
-          }
-          #${uid} .foot-bg img {
-            position: absolute;
-            top: -10px;
-            width: 180px;
-            height: 180px;
-            object-fit: contain;
-            opacity: .15;
-            filter: grayscale(40%) blur(1px);
-          }
-          #${uid} .bg-left  { left: -30px; right: auto; }
-          #${uid} .bg-right { right: -30px; left: auto; }
           #${uid} .foot-body { position: relative; z-index: 1; }
           #${uid} .foot-game {
             text-align: center;
@@ -190,7 +177,7 @@ class FootaoGameCard extends HTMLElement {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 22px;
+            gap: clamp(20px, 8%, 64px);
           }
           #${uid} .team-block {
             display: flex;
@@ -200,7 +187,30 @@ class FootaoGameCard extends HTMLElement {
             width: 80px;
             flex: 0 0 auto;
           }
+          #${uid} .team-logo-wrap {
+            position: relative;
+            width: 72px;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          #${uid} .team-logo-ghost {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 170px;
+            height: 170px;
+            transform: translate(-50%, -50%);
+            object-fit: contain;
+            opacity: .15;
+            filter: grayscale(40%) blur(1px);
+            pointer-events: none;
+            z-index: 0;
+          }
           #${uid} .team-logo {
+            position: relative;
+            z-index: 1;
             width: 72px;
             height: 72px;
             object-fit: contain;
@@ -243,10 +253,6 @@ class FootaoGameCard extends HTMLElement {
         <div id="${uid}">
           <div class="foot-card">
             <div class="foot-top">
-              <div class="foot-bg">
-                ${logoDom ? `<img class="bg-left"  src="${logoDom}">` : ""}
-                ${logoExt ? `<img class="bg-right" src="${logoExt}">` : ""}
-              </div>
               <div class="foot-body">
                 <div class="foot-game">
                   <span class="foot-game-name">${gameName}</span>
@@ -256,9 +262,12 @@ class FootaoGameCard extends HTMLElement {
                 </div>
                 <div class="teams">
                   <div class="team-block">
-                    ${logoDom
-                      ? `<img class="team-logo" src="${logoDom}">`
-                      : `<div style="width:72px;height:72px"></div>`}
+                    <div class="team-logo-wrap">
+                      ${logoDom ? `<img class="team-logo-ghost" src="${logoDom}">` : ""}
+                      ${logoDom
+                        ? `<img class="team-logo" src="${logoDom}">`
+                        : `<div style="width:72px;height:72px"></div>`}
+                    </div>
                     <span class="team-name">${b.domicile || ""}</span>
                   </div>
                   <div class="center">
@@ -283,9 +292,12 @@ class FootaoGameCard extends HTMLElement {
                     <div class="heure">${heure}</div>
                   </div>
                   <div class="team-block">
-                    ${logoExt
-                      ? `<img class="team-logo" src="${logoExt}">`
-                      : `<div style="width:72px;height:72px"></div>`}
+                    <div class="team-logo-wrap">
+                      ${logoExt ? `<img class="team-logo-ghost" src="${logoExt}">` : ""}
+                      ${logoExt
+                        ? `<img class="team-logo" src="${logoExt}">`
+                        : `<div style="width:72px;height:72px"></div>`}
+                    </div>
                     <span class="team-name">${b.exterieur || ""}</span>
                   </div>
                 </div>
