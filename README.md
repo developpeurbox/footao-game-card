@@ -82,24 +82,6 @@ Lorsque aucun match n'est trouvé pour l'équipe configurée (match passé ou ca
 
 ---
 ## 💬 **Communauté & Support**
-🗣️ **Forum Home Assistant** : [Discuter ici](https://community.home-assistant.io/)
+🗣️ **Forum Home Assistant** : [Discuter ici](https://forum.hacf.fr/t/carte-lovelace-integration-footao-le-programme-tv-foot-arrive-dans-home-assistant/84145)
 
 ---
-
-
-[releases-shield]: https://img.shields.io/github/v/release/developpeurbox/footao-game-card?style=for-the-badge
-[releases]: https://github.com/developpeurbox/footao-game-card/releases
-[hacs-badge]: https://img.shields.io/badge/HACS-Custom-41BDF5.svg?style=for-the-badge
-[hacs]: https://github.com/hacs/integration
-[forum-shield]: https://img.shields.io/badge/community-forum-brightgreen.svg?style=for-the-badge
-[forum]: https://community.home-assistant.io/
-
-[commits]: https://github.com/developpeurbox/footao-game-card/commits/main
-[hacs]: https://github.com/hacs/integration
-[hacsbadge]: https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge
-[exampleimg]: example.png
-[forum-shield]: https://img.shields.io/badge/community-forum-brightgreen.svg?style=for-the-badge
-[forum]: https://community.home-assistant.io/
-[releases-shield]: https://img.shields.io/github/v/release/developpeurbox/footao-game-card?style=for-the-badge
-[releases]: https://github.com/developpeurbox/footao-game-card/releases
-
