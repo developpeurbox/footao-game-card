@@ -1,8 +1,8 @@
 /* ========================================================
-   Footao Game Card  — v0.1.4
+   Footao Game Card
    ======================================================== */
 
-const FOOTAO_GAME_CARD_VERSION = "v0.1.4";
+const FOOTAO_GAME_CARD_VERSION = "v0.1.5";
 
 class FootaoGameCard extends HTMLElement {
 
@@ -333,21 +333,24 @@ class FootaoGameCardEditor extends HTMLElement {
     super();
     this._config = {};
     this._hass   = null;
+    this._built  = false;
     this.attachShadow({ mode: "open" });
   }
 
   set hass(hass) {
     this._hass = hass;
-    this._render();
+    if (!this._built) this._render();
   }
 
   setConfig(config) {
+    const entityChanged = (config?.entity || "") !== (this._config?.entity || "");
     this._config = config || {};
-    this._render();
+    if (!this._built || entityChanged) this._render();
   }
 
   _render() {
     if (!this._hass) return;
+    this._built = true;
 
     const entities = Object.keys(this._hass.states)
       .filter(e => e.startsWith("sensor.footao_"))
