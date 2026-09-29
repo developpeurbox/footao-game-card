@@ -1,1 +1,44 @@
+name: Release
 
+# Se déclenche uniquement quand footao-game-card.js change sur main (donc
+# quand tu bumps FOOTAO_GAME_CARD_VERSION). "Run workflow" dispo aussi.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "footao-game-card.js"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Lire la version dans le fichier JS
+        id: version
+        run: |
+          VERSION=$(grep -oP 'FOOTAO_GAME_CARD_VERSION = "v\K[0-9.]+' footao-game-card.js)
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Vérifier que le tag n'existe pas déjà
+        id: check
+        run: |
+          if git rev-parse "v${{ steps.version.outputs.version }}" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Créer le tag + la release
+        if: steps.check.outputs.exists == 'false'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: v${{ steps.version.outputs.version }}
+          generate_release_notes: true
