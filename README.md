@@ -84,4 +84,3 @@ Lorsque aucun match n'est trouvé pour l'équipe configurée (match passé ou ca
 ## 💬 **Communauté & Support**
 🗣️ **Forum Home Assistant** : [Discuter ici](https://forum.hacf.fr/t/carte-lovelace-integration-footao-le-programme-tv-foot-arrive-dans-home-assistant/84145)
 
----
