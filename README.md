@@ -24,7 +24,7 @@
 > ### Installation Rapide via HACS
 > Cliquez sur le bouton ci-dessous pour ajouter automatiquement le dépôt dans HACS :
 >
-> [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=developpeurbox&repository=ha-footao-game-card&category=dashboard)
+> [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=developpeurbox&repository=ha-footao-game-card&category=plugin)
 
 ### 🏗️ Méthode 1 : HACS (Recommandée)
 
